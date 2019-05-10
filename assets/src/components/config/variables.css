@@ -1,7 +1,7 @@
 :root {
 
 	/* Colors */
-	--c-black: #212121;
+	--c-black: #333;
 	--c-white: #eee;
 
 	--c-background: var(--c-black);

@@ -13,22 +13,28 @@ class Skipper {
 
 		// check for the main link hash
 		const hasMainSkipLink = this.checkElementId( obj.mainId );
-		const mainSkipLink = obj.mainId && hasMainSkipLink ? `<li class="a11y-skipper__skips-item"><a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a></li>` : '';
+		const mainSkipLink = obj.mainId && hasMainSkipLink ? `
+			<li class="a11y-skipper__skips-item">
+				<a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a>
+			</li>` : '';
 
 		// check for the search link hash
 		const hasSearchSkipLink = this.checkElementId( obj.searchId );
-		const searchSkipLink = obj.searchId && hasSearchSkipLink ? `<li class="a11y-skipper__skips-item"><a href="${obj.searchId}" class="a11y-skipper__link">Skip to search</a></li>` : '';
+		const searchSkipLink = obj.searchId && hasSearchSkipLink ? `
+			<li class="a11y-skipper__skips-item">
+				<a href="${obj.searchId}" class="a11y-skipper__link">Skip to search</a>
+			</li>` : '';
 
 		// check for menu object contents
 		const menuDropdown = obj.menu ? `
 			<div class="a11y-skipper__menu" id="a11y-skipper__menu">
-			<button aria-controls="a11y-skipper__dropdown" aria-expanded="false" id="a11y-skipper__dropdown-trigger" type="button">Page Sections</button>
-			<ul aria-hidden="true" class="a11y-skipper__dropdown" id="a11y-skipper__dropdown">
-				${obj.menu.map( menu => `
-				<li class="a11y-skipper__dropdown-item">
-					<a href="${menu.id}" class="a11y-skipper____dropdown-link">${menu.label}</a>
-				</li>` ).join( '' )}
-			</ul>
+				<button aria-controls="a11y-skipper__dropdown" aria-expanded="false" class="a11y-skipper__dropdown-trigger" id="a11y-skipper__dropdown-trigger" type="button">Page Sections</button>
+				<ul aria-hidden="true" class="a11y-skipper__dropdown" id="a11y-skipper__dropdown">
+					${obj.menu.map( menu => `
+					<li class="a11y-skipper__dropdown-item">
+						<a href="${menu.id}" class="a11y-skipper____dropdown-link">${menu.label}</a>
+					</li>` ).join( '' )}
+				</ul>
 			</div>
 		` : '';
 
