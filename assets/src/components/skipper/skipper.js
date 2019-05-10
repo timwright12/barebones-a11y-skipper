@@ -91,6 +91,13 @@ class Skipper {
 		if ( dropdownTrigger ) {
 			dropdownTrigger.addEventListener( 'click', () => {
 
+				// Toogle the dropDown state
+				if ( false === this.dropDownOpen ) {
+					this.dropDownOpen = true;
+				} else {
+					false === this.dropDownOpen;
+				}
+
 				// Check aria-expanded on the toggle button
 				expandedState = 'false' === dropdownTrigger.getAttribute( 'aria-expanded' ) ? 'true' : 'false';
 
@@ -103,9 +110,6 @@ class Skipper {
 
 				// Set the dropdown display status
 				this.setDisplay( dropdown );
-
-				// Toogle the dropDown state
-				this.dropDownOpen = !this.dropDownOpen;
 
 				// Set focus to the first link
 				dropdown.querySelector( 'a' ).focus();
