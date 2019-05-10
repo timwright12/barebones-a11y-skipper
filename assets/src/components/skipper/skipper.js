@@ -1,3 +1,5 @@
+import { ESCAPE } from '@barebones/keycodes';
+
 /**
  * Skipper class component
  */
@@ -10,10 +12,10 @@ class Skipper {
 	constructor( obj ) {
 
 		// check for the main link hash
-		const mainSkipLink = obj.mainId ? `<a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a>` : '';
+		const mainSkipLink = obj.mainId ? `<li class="a11y-skipper__skips-item"><a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a></li>` : '';
 
 		// check for the search link hash
-		const searchSkipLink = obj.mainId ? `<a href="${obj.mainId}" class="a11y-skipper__link">Skip to search</a>` : '';
+		const searchSkipLink = obj.mainId ? `<li class="a11y-skipper__skips-item"><a href="${obj.mainId}" class="a11y-skipper__link">Skip to search</a></li>` : '';
 
 		// check for menu object contents
 		const menuDropdown = obj.menu ? `
@@ -30,14 +32,16 @@ class Skipper {
 
 		const template = `
 			<div class="a11y-skipper" id="a11y-skipper" aria-label="Welcome to the skip menu">
-				${menuDropdown}
 				<div class="a11y-skipper__actions" id="a11y-skipper__actions">
-					${mainSkipLink}
-					${searchSkipLink}
-					<button aria-controls="a11y-skipper" aria-label="close this menu" class="a11y-skipper__close" id="a11y-skipper__close" type="button">
-						<svg aria-hidden="true" class="a11y-skipper__icon" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M15.854 12.854L11 8l4.854-4.854a.503.503 0 0 0 0-.707L13.561.146a.499.499 0 0 0-.707 0L8 5 3.146.146a.5.5 0 0 0-.707 0L.146 2.439a.499.499 0 0 0 0 .707L5 8 .146 12.854a.5.5 0 0 0 0 .707l2.293 2.293a.499.499 0 0 0 .707 0L8 11l4.854 4.854a.5.5 0 0 0 .707 0l2.293-2.293a.499.499 0 0 0 0-.707z"/></svg>
-					</button>
+					${menuDropdown}
+					<ul class="a11y-skipper__skips">
+						${mainSkipLink}
+						${searchSkipLink}
+					</ul>
 				</div>
+				<button aria-controls="a11y-skipper" aria-label="close this menu" class="a11y-skipper__close" id="a11y-skipper__close" type="button">
+					<svg aria-hidden="true" class="a11y-skipper__icon" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M15.854 12.854L11 8l4.854-4.854a.503.503 0 0 0 0-.707L13.561.146a.499.499 0 0 0-.707 0L8 5 3.146.146a.5.5 0 0 0-.707 0L.146 2.439a.499.499 0 0 0 0 .707L5 8 .146 12.854a.5.5 0 0 0 0 .707l2.293 2.293a.499.499 0 0 0 .707 0L8 11l4.854 4.854a.5.5 0 0 0 .707 0l2.293-2.293a.499.499 0 0 0 0-.707z"/></svg>
+				</button>
 			</div>
 		`;
 
@@ -46,7 +50,7 @@ class Skipper {
 			document.querySelector( obj.targetElement ).innerHTML = template;
 			this.handleInitEventBinding();
 			this.setDisplay( document.getElementById( 'a11y-skipper__dropdown' ) );
-			this.visuallyHide( document.getElementById( 'a11y-skipper' ) );
+			!obj.open ? this.visuallyHide( document.getElementById( 'a11y-skipper' ) ) : null;
 		}
 	}
 
@@ -80,13 +84,25 @@ class Skipper {
 			} );
 		}
 
-		// Skipper close menu button
+		// Close menu when the close button is clicked
 		closeButton.addEventListener( 'click', () => {
-			this.visuallyHide( menu );
 
 			// Set focus back to the <body> onClose
 			document.body.setAttribute( 'tabindex', '-1' );
 			document.body.focus();
+
+			this.visuallyHide( menu );
+
+		} );
+
+		// Closing the menu on ESC
+		menu.addEventListener( 'keyup', ( e ) => {
+			switch ( e.keyCode ) {
+					case ESCAPE:
+						e.stopPropagation();
+						this.visuallyHide( menu );
+						break;
+			}
 		} );
 
 	}

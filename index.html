@@ -1,13 +1,14 @@
 <!doctype html>
-<html>
+<html lang="en-US"
 	<head>
+		<title>A11y Skipper Demo</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="assets/dist/index.css">
 	</head>
 	<body>
-		<button>start</button>
-		<div id="a11y-skipper"></div>
-		<button>end</button>
+		<div id="a11y-catcher"></div>
+		<div id="main" role="main">main</div>
+		<div id="search" role="search">search <button type="button">Just here to catch focus</button></div>
 		<script src="assets/dist/index.min.js"></script>
 	</body>
 </html>
