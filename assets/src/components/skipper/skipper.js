@@ -11,6 +11,9 @@ class Skipper {
 	 */
 	constructor( obj ) {
 
+		// eslint-disable-next-line no-unused-vars
+		let dropDownOpen = false;
+
 		// check for the main link hash
 		const hasMainSkipLink = this.checkElementId( obj.mainId );
 		const mainSkipLink = obj.mainId && hasMainSkipLink ? `
@@ -32,7 +35,7 @@ class Skipper {
 				<ul aria-hidden="true" class="a11y-skipper__dropdown" id="a11y-skipper__dropdown">
 					${obj.menu.map( menu => `
 					<li class="a11y-skipper__dropdown-item">
-						<a href="${menu.id}" class="a11y-skipper____dropdown-link">${menu.label}</a>
+						<a href="${menu.id}" class="a11y-skipper__dropdown-link">${menu.label}</a>
 					</li>` ).join( '' )}
 				</ul>
 			</div>
@@ -74,18 +77,35 @@ class Skipper {
 
 		// Keyup event to tell when the skipper menu has focus
 		document.addEventListener( 'keyup', () => {
-			0 !== menu.querySelectorAll( ':focus' ).length ? this.visuallyShow( menu ) : this.visuallyHide( menu );
+
+			if ( 0 !== menu.querySelectorAll( ':focus' ).length ) {
+				this.visuallyShow( menu );
+			} else {
+				this.visuallyHide( menu );
+				this.closeDropdownMenu( dropdown, dropdownTrigger );
+			}
+
 		} );
 
 		// Opening and closing the dropdown menu inside skipper
 		if ( dropdownTrigger ) {
 			dropdownTrigger.addEventListener( 'click', () => {
+
+				// Check aria-expanded on the toggle button
 				expandedState = 'false' === dropdownTrigger.getAttribute( 'aria-expanded' ) ? 'true' : 'false';
+
+				// Check aria-hidden o nthe menu
 				menuState = 'false' === dropdown.getAttribute( 'aria-hidden' ) ? 'true' : 'false';
 
+				// Set aria states
 				dropdownTrigger.setAttribute( 'aria-expanded', expandedState );
 				dropdown.setAttribute( 'aria-hidden', menuState );
+
+				// Set the dropdown display status
 				this.setDisplay( dropdown );
+
+				// Toogle the dropDown state
+				this.dropDownOpen = !this.dropDownOpen;
 
 				// Set focus to the first link
 				dropdown.querySelector( 'a' ).focus();
@@ -94,6 +114,8 @@ class Skipper {
 
 		// Close menu when the close button is clicked
 		closeButton.addEventListener( 'click', () => {
+
+			this.closeDropdownMenu( dropdown, dropdownTrigger );
 
 			// Set focus back to the <body> onClose
 			document.body.setAttribute( 'tabindex', '-1' );
@@ -109,17 +131,54 @@ class Skipper {
 					case ESCAPE:
 						e.stopPropagation();
 						this.visuallyHide( menu );
+						this.closeDropdownMenu( dropdown, dropdownTrigger );
+
 						break;
+			}
+
+			// Close the dropdown if we're not inside it (open check inside closeDropdownMenu())
+			if ( 0 === dropdown.querySelectorAll( ':focus' ).length ) {
+				this.closeDropdownMenu( dropdown, dropdownTrigger );
+			}
+
+		} );
+
+		// Closing the dropdown on ESC
+		if ( dropdown ) {
+			dropdown.addEventListener( 'keyup', ( e ) => {
+
+				e.stopPropagation();
+
+				switch ( e.keyCode ) {
+						case ESCAPE:
+							this.closeDropdownMenu( dropdown, dropdownTrigger );
+							dropdownTrigger.focus();
+							break;
+				}
+
+			}, false );
+		}
+
+		// Close dropDown menu on outside click
+		document.addEventListener( 'mouseup', ( e ) => {
+			if ( e.target != dropdown && e.target.parentNode != dropdown && this.dropDownOpen ) {
+				this.closeDropdownMenu( dropdown, dropdownTrigger );
 			}
 		} );
 
-	}
+	} // handleInitEventBinding()
 
 	/**
 	 * Set the display property of an element
 	 */
 	setDisplay( obj ) {
-		return 'true' === obj.getAttribute( 'aria-hidden' ) ? obj.style.display = 'none' : obj.removeAttribute( 'style' );
+		if ( obj ) {
+			if ( 'true' === obj.getAttribute( 'aria-hidden' ) ) {
+				return obj.style.display = 'none';
+			} else {
+				return obj.removeAttribute( 'style' );
+			}
+		}
 	}
 
 	/**
@@ -158,6 +217,18 @@ class Skipper {
 	 */
 	checkElementId( el ) {
 		return document.querySelector( el ) ? true : false;
+	}
+
+	/**
+	 * Utility to make sure the dropdown closes
+	 */
+	closeDropdownMenu( dropdown, dropdownTrigger ) {
+		if( this.dropDownOpen ) {
+			dropdownTrigger.setAttribute( 'aria-expanded', 'false' );
+			dropdown.setAttribute( 'aria-hidden', 'true' );
+			this.setDisplay( dropdown );
+			this.dropDownOpen = false;
+		}
 	}
 
 	/**
