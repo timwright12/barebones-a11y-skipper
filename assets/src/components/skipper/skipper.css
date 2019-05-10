@@ -120,7 +120,6 @@
 	position: absolute;
 	top: 100%;
 	width: 15.625em;
-	max-height: 31.25em;
 
 	&:before {
 		content: '';
