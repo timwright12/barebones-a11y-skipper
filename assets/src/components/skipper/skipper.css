@@ -1,0 +1,44 @@
+.a11y-skipper {
+	background: var(--c-background);
+	color: var(--c-text);
+	display: flex;
+	font-family: sans-serif;
+    justify-content: space-between;
+	padding: 1em;
+}
+
+.a11y-skipper__menu {
+
+}
+
+.a11y-skipper__dropdown-trigger {
+
+}
+
+.a11y-skipper__dropdown {
+
+}
+
+.a11y-skipper__dropdown-item {
+
+}
+
+.a11y-skipper__actions {
+
+}
+
+.a11y-skipper__link {
+	color: var(--c-text);
+}
+
+.a11y-skipper__icon {
+	fill: var(--c-text);
+}
+
+.a11y-skipper__close {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+}
