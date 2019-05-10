@@ -12,10 +12,12 @@ class Skipper {
 	constructor( obj ) {
 
 		// check for the main link hash
-		const mainSkipLink = obj.mainId ? `<li class="a11y-skipper__skips-item"><a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a></li>` : '';
+		const hasMainSkipLink = this.checkElementId( obj.mainId );
+		const mainSkipLink = obj.mainId && hasMainSkipLink ? `<li class="a11y-skipper__skips-item"><a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a></li>` : '';
 
 		// check for the search link hash
-		const searchSkipLink = obj.mainId ? `<li class="a11y-skipper__skips-item"><a href="${obj.mainId}" class="a11y-skipper__link">Skip to search</a></li>` : '';
+		const hasSearchSkipLink = this.checkElementId( obj.searchId );
+		const searchSkipLink = obj.searchId && hasSearchSkipLink ? `<li class="a11y-skipper__skips-item"><a href="${obj.searchId}" class="a11y-skipper__link">Skip to search</a></li>` : '';
 
 		// check for menu object contents
 		const menuDropdown = obj.menu ? `
@@ -143,6 +145,13 @@ class Skipper {
 	 */
 	setStylesOnElement( styles, element ) {
 		Object.assign( element.style, styles );
+	}
+
+	/**
+	 * Make sure an element is in the DOM before creating a link for it
+	 */
+	checkElementId( el ) {
+		return document.querySelector( el ) ? true : false;
 	}
 
 	/**

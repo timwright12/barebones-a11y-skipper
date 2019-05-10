@@ -11,8 +11,9 @@ Skipper.init( {
 	mainId: '#main',
 	searchId: '#search',
 	menu: [
-		{ label: 'Footer', id: '#footer' },
-		{ label: 'Sidebar', id: '#sidebar' }
+		{ label: 'Navigation', id: '#nav' },
+		{ label: 'Sidebar', id: '#sidebar' },
+		{ label: 'Footer', id: '#footer' }
 	],
 	open: true
 } );
