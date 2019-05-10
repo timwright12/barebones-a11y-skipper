@@ -1,5 +1,6 @@
 # A11y Skipper Menu
 
+```
 Skipper.init( {
 	targetElement: '#a11y-skipper',
 	mainId: '#main',
@@ -9,3 +10,4 @@ Skipper.init( {
 		{ label: 'Sidebar', id: '#sidebar' }
 	]
 } );
+```
