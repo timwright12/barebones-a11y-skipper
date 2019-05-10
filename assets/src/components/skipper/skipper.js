@@ -9,15 +9,20 @@ class Skipper {
 	 */
 	constructor( obj ) {
 
+		// check for the main link hash
 		const mainSkipLink = obj.mainId ? `<a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a>` : '';
+
+		// check for the search link hash
 		const searchSkipLink = obj.mainId ? `<a href="${obj.mainId}" class="a11y-skipper__link">Skip to search</a>` : '';
+
+		// check for menu object contents
 		const menuDropdown = obj.menu ? `
 			<div class="a11y-skipper__menu" id="a11y-skipper__menu">
 			<button aria-controls="a11y-skipper__dropdown" aria-expanded="false" id="a11y-skipper__dropdown-trigger" type="button">Page Sections</button>
 			<ul aria-hidden="true" class="a11y-skipper__dropdown" id="a11y-skipper__dropdown">
 				${obj.menu.map( menu => `
 				<li class="a11y-skipper__dropdown-item">
-					<a href="${menu.id}" class="a11y-skipper__link">${menu.label}</a>
+					<a href="${menu.id}" class="a11y-skipper____dropdown-link">${menu.label}</a>
 				</li>` ).join( '' )}
 			</ul>
 			</div>

@@ -23,12 +23,18 @@
 
 }
 
+.a11y-skipper__dropdown-link {
+	color: var(--c-text);
+}
+
 .a11y-skipper__actions {
 
 }
 
 .a11y-skipper__link {
+	border: 1px solid var(--c-text);
 	color: var(--c-text);
+	padding: .5em;
 }
 
 .a11y-skipper__icon {
