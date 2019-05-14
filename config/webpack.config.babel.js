@@ -4,12 +4,12 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'mini-css-extract-plugin';
 import postcssPresetEnv from 'postcss-preset-env';
 
-const DIST_PATH = path.resolve( './assets/dist' );
+const DIST_PATH = path.resolve( './dist' );
 
 const config = {
 	cache: true,
 	entry: {
-		index: './assets/src/index.js',
+		index: './src/index.js',
 	},
 	output: {
 		path: DIST_PATH,

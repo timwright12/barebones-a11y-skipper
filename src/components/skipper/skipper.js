@@ -1,4 +1,8 @@
 import { ESCAPE } from '@barebones/keycodes';
+import { checkElementId } from '../../utilities/check-element-id.js';
+import { visuallyShow } from '../../utilities/visually-show.js';
+import { visuallyHide } from '../../utilities/visually-hide.js';
+import { setDisplay } from '../../utilities/set-display.js';
 
 /**
  * Skipper class component
@@ -11,18 +15,21 @@ class Skipper {
 	 */
 	constructor( obj ) {
 
-		// eslint-disable-next-line no-unused-vars
-		let dropDownOpen = false;
+		// Setting the initial state of the menu and dropdown option
+		this.state = {
+			menuOpen: obj.open,
+			dropDownOpen: false
+		};
 
 		// check for the main link hash
-		const hasMainSkipLink = this.checkElementId( obj.mainId );
+		const hasMainSkipLink = checkElementId( obj.mainId );
 		const mainSkipLink = obj.mainId && hasMainSkipLink ? `
 			<li class="a11y-skipper__skips-item">
 				<a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a>
 			</li>` : '';
 
 		// check for the search link hash
-		const hasSearchSkipLink = this.checkElementId( obj.searchId );
+		const hasSearchSkipLink = checkElementId( obj.searchId );
 		const searchSkipLink = obj.searchId && hasSearchSkipLink ? `
 			<li class="a11y-skipper__skips-item">
 				<a href="${obj.searchId}" class="a11y-skipper__link">Skip to search</a>
@@ -60,8 +67,8 @@ class Skipper {
 		if ( obj ) {
 			document.querySelector( obj.targetElement ).innerHTML = template;
 			this.handleInitEventBinding();
-			this.setDisplay( document.getElementById( 'a11y-skipper__dropdown' ) );
-			!obj.open ? this.visuallyHide( document.getElementById( 'a11y-skipper' ) ) : null;
+			setDisplay( document.getElementById( 'a11y-skipper__dropdown' ) );
+			!obj.open ? visuallyHide( document.getElementById( 'a11y-skipper' ), 'skipper-is-hidden' ) : null;
 		}
 	}
 
@@ -73,48 +80,6 @@ class Skipper {
 		const dropdownTrigger = document.getElementById( 'a11y-skipper__dropdown-trigger' );
 		const dropdown = document.getElementById( 'a11y-skipper__dropdown' );
 		const closeButton = document.getElementById( 'a11y-skipper__close' );
-		let expandedState, menuState;
-
-		// Keyup event to tell when the skipper menu has focus
-		document.addEventListener( 'keyup', () => {
-
-			if ( 0 !== menu.querySelectorAll( ':focus' ).length ) {
-				this.visuallyShow( menu );
-			} else {
-				this.visuallyHide( menu );
-				this.closeDropdownMenu( dropdown, dropdownTrigger );
-			}
-
-		} );
-
-		// Opening and closing the dropdown menu inside skipper
-		if ( dropdownTrigger ) {
-			dropdownTrigger.addEventListener( 'click', () => {
-
-				// Toogle the dropDown state
-				if ( false === this.dropDownOpen ) {
-					this.dropDownOpen = true;
-				} else {
-					false === this.dropDownOpen;
-				}
-
-				// Check aria-expanded on the toggle button
-				expandedState = 'false' === dropdownTrigger.getAttribute( 'aria-expanded' ) ? 'true' : 'false';
-
-				// Check aria-hidden o nthe menu
-				menuState = 'false' === dropdown.getAttribute( 'aria-hidden' ) ? 'true' : 'false';
-
-				// Set aria states
-				dropdownTrigger.setAttribute( 'aria-expanded', expandedState );
-				dropdown.setAttribute( 'aria-hidden', menuState );
-
-				// Set the dropdown display status
-				this.setDisplay( dropdown );
-
-				// Set focus to the first link
-				dropdown.querySelector( 'a' ).focus();
-			} );
-		}
 
 		// Close menu when the close button is clicked
 		closeButton.addEventListener( 'click', () => {
@@ -125,7 +90,9 @@ class Skipper {
 			document.body.setAttribute( 'tabindex', '-1' );
 			document.body.focus();
 
-			this.visuallyHide( menu );
+			visuallyHide( menu, 'skipper-is-hidden' );
+
+			this.state.menuOpen = false;
 
 		} );
 
@@ -134,7 +101,7 @@ class Skipper {
 			switch ( e.keyCode ) {
 					case ESCAPE:
 						e.stopPropagation();
-						this.visuallyHide( menu );
+						visuallyHide( menu, 'skipper-is-hidden' );
 						this.closeDropdownMenu( dropdown, dropdownTrigger );
 
 						break;
@@ -143,12 +110,14 @@ class Skipper {
 			// Close the dropdown if we're not inside it (open check inside closeDropdownMenu())
 			if ( 0 === dropdown.querySelectorAll( ':focus' ).length ) {
 				this.closeDropdownMenu( dropdown, dropdownTrigger );
+				this.state.menuOpen = false;
 			}
 
 		} );
 
-		// Closing the dropdown on ESC
-		if ( dropdown ) {
+		if ( dropdown && dropdownTrigger ) {
+
+			// Closing the dropdown on ESC
 			dropdown.addEventListener( 'keyup', ( e ) => {
 
 				e.stopPropagation();
@@ -161,7 +130,35 @@ class Skipper {
 				}
 
 			}, false );
+
+			// Toggling the dropdown on trigger clink
+			dropdownTrigger.addEventListener( 'click', () => {
+
+				if ( true === this.state.dropDownOpen ) {
+					this.closeDropdownMenu( dropdown, dropdownTrigger );
+				} else {
+					this.openDropdownMenu( dropdown, dropdownTrigger );
+					dropdown.querySelector( 'a' ).focus();
+				}
+
+				setDisplay( dropdown );
+
+			} );
 		}
+
+		// Keyup event to tell when the skipper menu has focus
+		document.addEventListener( 'keyup', () => {
+
+			if ( 0 !== menu.querySelectorAll( ':focus' ).length ) {
+				visuallyShow( menu, 'skipper-is-hidden' );
+				this.state.menuOpen = true;
+			} else {
+				visuallyHide( menu, 'skipper-is-hidden' );
+				this.state.menuOpen = false;
+				this.closeDropdownMenu( dropdown, dropdownTrigger );
+			}
+
+		} );
 
 		// Close dropDown menu on outside click
 		document.addEventListener( 'mouseup', ( e ) => {
@@ -173,66 +170,23 @@ class Skipper {
 	} // handleInitEventBinding()
 
 	/**
-	 * Set the display property of an element
-	 */
-	setDisplay( obj ) {
-		if ( obj ) {
-			if ( 'true' === obj.getAttribute( 'aria-hidden' ) ) {
-				return obj.style.display = 'none';
-			} else {
-				return obj.removeAttribute( 'style' );
-			}
-		}
-	}
-
-	/**
-	 * Visually hide an element
-	 */
-	visuallyHide( el ) {
-		el.classList.add( 'skipper-is-hidden' );
-
-		this.setStylesOnElement( {
-			clip: 'rect(1px, 1px, 1px, 1px)',
-			clipPath: 'inset(50%)',
-			height: '1px',
-			width: '1px',
-			overflow: 'hidden',
-			position: 'absolute'
-		}, el );
-	}
-
-	/**
-	 * Visually display an element
-	 */
-	visuallyShow( el ) {
-		el.classList.remove( 'skipper-is-hidden' );
-		el.removeAttribute( 'style' );
-	}
-
-	/**
-	 * Helping set styles on the skipper element inside a loop
-	 */
-	setStylesOnElement( styles, element ) {
-		Object.assign( element.style, styles );
-	}
-
-	/**
-	 * Make sure an element is in the DOM before creating a link for it
-	 */
-	checkElementId( el ) {
-		return document.querySelector( el ) ? true : false;
-	}
-
-	/**
 	 * Utility to make sure the dropdown closes
 	 */
 	closeDropdownMenu( dropdown, dropdownTrigger ) {
-		if( this.dropDownOpen ) {
-			dropdownTrigger.setAttribute( 'aria-expanded', 'false' );
-			dropdown.setAttribute( 'aria-hidden', 'true' );
-			this.setDisplay( dropdown );
-			this.dropDownOpen = false;
-		}
+		dropdownTrigger.setAttribute( 'aria-expanded', 'false' );
+		dropdown.setAttribute( 'aria-hidden', 'true' );
+		setDisplay( dropdown );
+		this.state.dropDownOpen = false;
+	}
+
+	/**
+	 * Utility to make sure the dropdown opens
+	 */
+	openDropdownMenu( dropdown, dropdownTrigger ) {
+		dropdownTrigger.setAttribute( 'aria-expanded', 'true' );
+		dropdown.setAttribute( 'aria-hidden', 'false' );
+		setDisplay( dropdown );
+		this.state.dropDownOpen = true;
 	}
 
 	/**
