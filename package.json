@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A skip menu generation plugin inspired by the robust LinkedIn skip menu",
   "main": "./src/components/skipper/skipper.js",
-  "styles": "./src/components/skipper/skipper.css",
+  "style": "./src/main.css",
   "scripts": {
     "dev": "webpack -d --config ./config/webpack.config.babel.js",
     "watch": "webpack --watch --config ./config/webpack.config.babel.js",
