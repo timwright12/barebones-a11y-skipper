@@ -2,7 +2,8 @@
   "name": "@barebones/a11y-skipper",
   "version": "0.0.1",
   "description": "A skip menu generation plugin inspired by the robust LinkedIn skip menu",
-  "main": "index.js",
+  "main": "./src/components/skipper/main.js",
+  "style": "./src/components/skipper/main.css",
   "scripts": {
     "dev": "webpack -d --config ./config/webpack.config.babel.js",
     "watch": "webpack --watch --config ./config/webpack.config.babel.js",

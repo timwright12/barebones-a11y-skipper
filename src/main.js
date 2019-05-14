@@ -15,5 +15,5 @@ Skipper.init( {
 		{ label: 'Sidebar', id: '#sidebar' },
 		{ label: 'Footer', id: '#footer' }
 	],
-	open: true
+	open: false
 } );
