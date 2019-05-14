@@ -1,5 +1,12 @@
 # A11y Skipper Menu
 
+## Usage
+
+### Installation
+```
+npm install @barebones/a11y-skipper
+```
+### JavaScript
 ```javascript
 import Skipper from '@barebones/a11y-skipper';
 
@@ -14,10 +21,12 @@ Skipper.init( {
 } );
 ```
 
+### CSS
 ```css
 @import '@barebones/a11y-skipper';
 ```
 
+### HTML
 ```html
 <!--Matches the ID passed into Skipper.init()-->
 <div id="a11y-skipper">
