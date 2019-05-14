@@ -3,7 +3,7 @@
 ## Usage
 
 ### Installation
-```
+```bash
 npm install @barebones/a11y-skipper
 ```
 ### JavaScript
