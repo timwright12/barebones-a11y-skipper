@@ -1,5 +1,7 @@
 # A11y Skipper Menu
 
+[![Build Status][cli-img]][cli-url]
+
 ## Usage
 If any ID passed into the Skipper.init() object are not present on the current page
 they will not show up in the menu.
@@ -51,3 +53,7 @@ Skipper.init( {
 
 <!--Matches the primary string ID passed into Skipper.init()-->
 <div id="main">Your main content here.</div>
+```
+
+[cli-img]: https://travis-ci.org/timwright12/barebones-a11y-skipper.svg?branch=master
+[cli-url]: https://travis-ci.org/timwright12/barebones-a11y-skipper
