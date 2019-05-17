@@ -29,7 +29,7 @@ Skipper.init( {
 ```css
 @import '@barebones/a11y-skipper';
 
-/* Update the color variables is you want */
+/* Update the color variables if you want */
 :root {
   --c-branding: black;
   --c-branding-inverse: white;
