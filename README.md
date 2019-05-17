@@ -3,14 +3,17 @@
 [![Build Status][cli-img]][cli-url]
 
 ## Usage
+
 If any ID passed into the Skipper.init() object are not present on the current page
 they will not show up in the menu.
 
 ### Installation
+
 ```bash
 npm install @barebones/a11y-skipper
 ```
 ### JavaScript
+
 ```javascript
 import Skipper from '@barebones/a11y-skipper';
 
@@ -28,6 +31,7 @@ Skipper.init( {
 ```
 
 ### CSS
+
 ```css
 @import '@barebones/a11y-skipper';
 
