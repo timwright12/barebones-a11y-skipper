@@ -41,7 +41,7 @@ Skipper.init( {
 ### HTML
 ```html
 <!--Matches the ID passed into Skipper.init()-->
-<div id="a11y-skipper">
+<div id="a11y-catcher">
 	<!--A no-JS fallback skip link-->
 	<a href="#main">skip to content</a>
 </div>
