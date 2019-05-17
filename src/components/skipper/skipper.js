@@ -22,31 +22,38 @@ class Skipper {
 		};
 
 		// check for the main link hash
-		const hasMainSkipLink = checkElementId( obj.mainId );
-		const mainSkipLink = obj.mainId && hasMainSkipLink ? `
+		const hasMainSkipLink = checkElementId( obj.primary[1] );
+		const mainSkipLink = obj.primary.length && hasMainSkipLink ? `
 			<li class="a11y-skipper__skips-item">
-				<a href="${obj.mainId}" class="a11y-skipper__link">Skip to content</a>
+				<a href="${obj.primary[1]}" class="a11y-skipper__link">${obj.primary[0]}</a>
 			</li>` : '';
 
 		// check for the search link hash
-		const hasSearchSkipLink = checkElementId( obj.searchId );
-		const searchSkipLink = obj.searchId && hasSearchSkipLink ? `
+		const hasSearchSkipLink = checkElementId( obj.secondary[1] );
+		const searchSkipLink = obj.secondary.length && hasSearchSkipLink ? `
 			<li class="a11y-skipper__skips-item">
-				<a href="${obj.searchId}" class="a11y-skipper__link">Skip to search</a>
+				<a href="${obj.secondary[1]}" class="a11y-skipper__link">${obj.secondary[0]}</a>
 			</li>` : '';
 
-		// check for menu object contents
+		// check for menu object contents, if no menu exists in the DOM, don't output it
+		/* eslint-disable indent */
 		const menuDropdown = obj.menu ? `
 			<div class="a11y-skipper__menu" id="a11y-skipper__menu">
 				<button aria-controls="a11y-skipper__dropdown" aria-expanded="false" class="a11y-skipper__dropdown-trigger" id="a11y-skipper__dropdown-trigger" type="button">Page Sections</button>
 				<ul aria-hidden="true" class="a11y-skipper__dropdown" id="a11y-skipper__dropdown">
-					${obj.menu.map( menu => `
-					<li class="a11y-skipper__dropdown-item">
-						<a href="${menu.id}" class="a11y-skipper__dropdown-link">${menu.label}</a>
-					</li>` ).join( '' )}
+
+				${obj.menu.map( function( menu ) {
+					if( checkElementId( menu.id ) ) {
+						return `<li class="a11y-skipper__dropdown-item"><a href="${menu.id}" class="a11y-skipper__dropdown-link">${menu.label}</a></li>`;
+					} else {
+						return null;
+					}
+				}.bind( this ) ).join( '' )}
+
 				</ul>
 			</div>
 		` : '';
+		/* eslint-enable indent*/
 
 		const template = `
 			<div class="a11y-skipper" id="a11y-skipper" aria-label="Welcome to the skip menu">

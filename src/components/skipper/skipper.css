@@ -8,6 +8,8 @@
 	-moz-osx-font-smoothing: grayscale;
     justify-content: space-between;
 	padding: 1em;
+	position: relative;
+	z-index: 999; /* just an agressive default value */
 
 	@media( --bp-small ) {
 		align-items: center;
