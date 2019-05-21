@@ -4,6 +4,29 @@ import { visuallyShow } from '../../utilities/visually-show.js';
 import { visuallyHide } from '../../utilities/visually-hide.js';
 import { setDisplay } from '../../utilities/set-display.js';
 
+// Object.assign Polyfill
+if ( 'function' != typeof Object.assign ) {
+	Object.assign = function( target ) {
+		'use strict';
+		if ( null == target ) {
+			throw new TypeError( 'Cannot convert undefined or null to object' );
+		}
+
+		target = Object( target );
+		for ( var index = 1; index < arguments.length; index++ ) {
+			var source = arguments[index];
+			if ( null != source ) {
+				for ( var key in source ) {
+					if ( Object.prototype.hasOwnProperty.call( source, key ) ) {
+						target[key] = source[key];
+					}
+				}
+			}
+		}
+		return target;
+	};
+}
+
 /**
  * Skipper class component
  */
