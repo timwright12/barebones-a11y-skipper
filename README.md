@@ -10,7 +10,7 @@ they will not show up in the menu.
 ### Installation
 
 ```bash
-npm install @barebones/a11y-skipper
+npm install @barebones/a11y-skipper --save
 ```
 ### JavaScript
 
