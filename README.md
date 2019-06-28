@@ -8,10 +8,13 @@ If any ID passed into the Skipper.init() object are not present on the current p
 they will not show up in the menu.
 
 ### Installation
+NPM installation is not currently optimal, but you can manually install it for now by copying the files into your workflow.
 
+<!--
 ```bash
 npm install @barebones/a11y-skipper --save
 ```
+-->
 ### JavaScript
 
 ```javascript
@@ -33,7 +36,7 @@ Skipper.init( {
 ### CSS
 
 ```css
-@import '@barebones/a11y-skipper';
+@import '@barebones/a11y-skipper'; /* when NPM install is fixed */
 
 /* Update the color variables if you want */
 :root {
