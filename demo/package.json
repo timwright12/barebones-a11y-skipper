@@ -1,0 +1,72 @@
+{
+  "name": "project-starter-webpack",
+  "version": "1.0.0",
+  "description": "A test project for Min Webpack",
+  "main": "index.js",
+  "jest": {
+    "preset": "jest-puppeteer"
+  },
+  "scripts": {
+    "build": "webpack -p --config config/webpack.config.babel.js",
+    "dev": "webpack -d --config config/webpack.config.babel.js",
+    "watch": "webpack -d --watch --config config/webpack.config.babel.js",
+    "test:a11y": "node tests/accessibility/compliance/pa11y.js",
+    "test:visual-init": "pushd tests/visual/ && backstop init && rm backstop.json && popd",
+    "test:visual-reference": "pushd tests/visual/ && ../../node_modules/backstopjs/cli/index.js reference --config=index.js && popd",
+    "test:visual": "pushd tests/visual/ && ../../node_modules/backstopjs/cli/index.js test --config=index.js && popd",
+    "test:visual-approve": "pushd tests/visual/ && ../../node_modules/backstopjs/cli/index.js approve --config=index.js && popd",
+    "test:e2e": "jest"
+  },
+  "author": "Tim Wright",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/register": "^7.4.4",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "backstopjs": "^4.1.9",
+    "browserslist": "^4.6.4",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.0.0",
+    "cssnano": "^4.1.10",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.2.1",
+    "file-loader": "^4.0.0",
+    "image-webpack-loader": "^5.0.0",
+    "jest": "^24.8.0",
+    "jest-puppeteer": "^4.2.0",
+    "mini-css-extract-plugin": "^0.7.0",
+    "postcss": "^7.0.17",
+    "postcss-custom-media": "^7.0.8",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "puppeteer": "^1.18.1",
+    "style-loader": "^0.23.1",
+    "svg-sprite-loader": "^4.1.6",
+    "url-loader": "^2.0.1",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "normalize.css": "^8.0.1",
+    "webfontloader": "^1.6.28"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "maintained node versions",
+    "IE 11"
+  ],
+  "testing": {
+    "urls": {
+      "home": "http://localhost:8000"
+    },
+    "accessibility": {
+      "compliance": "WCAG2AA"
+    }
+  }
+}
