@@ -40,8 +40,8 @@ Skipper.init( {
 
 /* Update the color variables if you want */
 :root {
-  --c-branding: black;
-  --c-branding-inverse: white;
+  --c-a11y-skipper-branding: black;
+  --c-a11y-skipper-branding-inverse: white;
 }
 
 /* Add more CSS here if you need to override anything */
