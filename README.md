@@ -36,7 +36,7 @@ Skipper.init( {
 ### CSS
 
 ```css
-@import '@barebones/a11y-skipper'; /* when NPM install is fixed */
+@import '@barebones/a11y-skipper'; /* Note: @barebones needs to be included in the build to polyfill Class and template literals */
 
 /* Update the color variables if you want */
 :root {
