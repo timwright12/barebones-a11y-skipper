@@ -1,13 +1,12 @@
 /**
  * Extecite when the application is ready
  */
- 
 function appReady( cb ) {
-	if (document.readyState !== 'loading') {
+	if ( 'loading' !== document.readyState ) {
 		cb();
-	} else if (document.addEventListener) {
-		document.addEventListener('DOMContentLoaded', cb);
+	} else if ( document.addEventListener ) {
+		document.addEventListener( 'DOMContentLoaded', cb );
 	}
-};
+}
 
 export { appReady };
