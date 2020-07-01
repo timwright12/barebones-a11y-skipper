@@ -26,5 +26,18 @@
 		</div>
 
 		<script src="dist/index.min.js"></script>
+		<script>
+			Barebones.skipper.init( {
+				targetElement: '#a11y-catcher',
+				primary: ['Skip to content', '#main'],
+				secondary: ['Skip to search', '#search'],
+				menu: [
+					{ label: 'Navigation', id: '#nav' },
+					{ label: 'Sidebar', id: '#sidebar' },
+					{ label: 'Footer', id: '#footer' }
+				],
+				open: false
+			} );
+		</script>
 	</body>
 </html>
