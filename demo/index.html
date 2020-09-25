@@ -2,30 +2,19 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="dist/index.css">
+		<link rel="stylesheet" href="../dist/index.css" />
 	</head>
 	<body>
 		<div id="a11y-catcher">
 			<a href="#main">Skip to content</a>
 		</div>
 
-		<div id="nav">
-			main
-		</div>
+		<nav id="nav">Nav</nav>
+		<div id="search">Search</div>
+		<main id="main">Main</main>
+		<footer id="footer">Footer</footer>
 
-		<div id="search">
-			main
-		</div>
-
-		<div id="main">
-			main
-		</div>
-
-		<div id="footer">
-			main
-		</div>
-
-		<script src="dist/index.min.js"></script>
+		<script src="../dist/index.min.js"></script>
 		<script>
 			Barebones.skipper.init( {
 				targetElement: '#a11y-catcher',
