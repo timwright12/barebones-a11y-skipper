@@ -1,15 +1,17 @@
 .a11y-skipper {
 	align-items: flex-start;
-	background: var(--c-branding);
-	color: var(--c-branding-inverse);
+	background: var(--c-a11y-skipper-branding);
+	color: var(--c-a11y-skipper-branding-inverse);
 	display: flex;
 	font-family: sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-    justify-content: space-between;
+	justify-content: space-between;
 	padding: 1em;
+	position: relative;
+	z-index: 999; /* just an agressive default value */
 
-	@media( --bp-small ) {
+	@media ( --bp-small ) {
 		align-items: center;
 	}
 }
@@ -19,9 +21,9 @@
 	order: 2;
 	position: relative;
 
-	@media( --bp-small ) {
-		margin-top: 0;
+	@media ( --bp-small ) {
 		margin-right: 1em;
+		margin-top: 0;
 		order: 0;
 	}
 
@@ -32,7 +34,7 @@
 	flex-direction: column;
 	width: 100%;
 
-	@media( --bp-small ) {
+	@media ( --bp-small ) {
 		flex-direction: row;
 	}
 
@@ -49,7 +51,7 @@
 	display: flex;
 	width: calc(100% - 1em);
 
-	@media( --bp-small ) {
+	@media ( --bp-small ) {
 		width: auto;
 	}
 
@@ -59,7 +61,7 @@
 	text-align: center;
 	width: 100%;
 
-	@media( --bp-small ) {
+	@media ( --bp-small ) {
 		text-align: left;
 		width: auto;
 	}
@@ -73,87 +75,89 @@
 	align-items: center;
 	background: none;
 	border: 0;
-	border-bottom: 1px solid var(--c-branding-inverse);
-	color: var(--c-branding-inverse);
+	border-bottom: 1px solid var(--c-a11y-skipper-branding-inverse);
+	color: var(--c-a11y-skipper-branding-inverse);
 	cursor: pointer;
 	display: flex;
 	font-size: inherit;
 	margin: 0;
-	padding: .33em .33em .33em 0;
+	padding: 0.33em 0.33em 0.33em 0;
 	white-space: nowrap;
 	width: calc(100% - 1em);
 
-	@media( --bp-small ) {
+	@media ( --bp-small ) {
 		width: 100%;
 	}
 
-	&:after {
-		content: "";
+	&::after {
+		border-color: var(--c-a11y-skipper-branding-inverse) transparent transparent transparent;
 		border-style: solid;
-		border-width: .5em .5em 0 .5em;
-		border-color: var(--c-branding-inverse) transparent transparent transparent;
+		border-width: 0.5em 0.5em 0 0.5em;
+		content: "";
 		height: 0;
 		margin-left: auto;
 		width: 0;
 
-		@media( --bp-small ) {
-			margin-left: .5em;
+		@media ( --bp-small ) {
+			margin-left: 0.5em;
 		}
 
 	}
 
 	&[aria-expanded="true"] {
-		&:after {
+
+		&::after {
 			transform: rotate(180deg);
 		}
+
 	}
 
 }
 
 .a11y-skipper__dropdown {
-	background-color: var(--c-branding-inverse);
 	background-clip: padding-box;
-	border: 1px solid var(--c-branding-inverse);
+	background-color: var(--c-a11y-skipper-branding-inverse);
+	border: 1px solid var(--c-a11y-skipper-branding-inverse);
 	border-radius: 0.125em;
-	box-shadow: 0 .25em .5em rgba(0, 0, 0, .15);
-	margin-top: .5em;
+	box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.15);
+	margin-top: 0.5em;
 	position: absolute;
 	top: 100%;
 	width: 15.625em;
 
-	&:before {
-		content: '';
+	&::before {
+		border-color: transparent transparent var(--c-a11y-skipper-branding-inverse) transparent;
 		border-style: solid;
-		border-width: 0 .5em .5em .5em;
-		border-color: transparent transparent var(--c-branding-inverse) transparent;
+		border-width: 0 0.5em 0.5em 0.5em;
+		content: "";
 		height: 0;
-		position: absolute;
-		top: -.5em;
 		left: 1em;
+		position: absolute;
+		top: -0.5em;
 		width: 0;
 	}
 
 }
 
 .a11y-skipper__dropdown-link {
-	color: var(--c-branding);
+	color: var(--c-a11y-skipper-branding);
 	display: block;
 	line-height: 1.4;
-	padding: .5em 1em;
+	padding: 0.5em 1em;
 
 	&:hover,
 	&:focus {
-		background: var(--c-branding);
-		color: var(--c-branding-inverse);
+		background: var(--c-a11y-skipper-branding);
+		color: var(--c-a11y-skipper-branding-inverse);
 	}
 
 }
 
 .a11y-skipper__link {
-	border: 1px solid var(--c-branding-inverse);
-	color: var(--c-branding-inverse);
+	border: 1px solid var(--c-a11y-skipper-branding-inverse);
+	color: var(--c-a11y-skipper-branding-inverse);
 	display: block;
-	padding: .33em .66em;
+	padding: 0.33em 0.66em;
 	text-decoration: none;
 
 	&:focus,
@@ -164,7 +168,7 @@
 }
 
 .a11y-skipper__icon {
-	fill: var(--c-branding-inverse);
+	fill: var(--c-a11y-skipper-branding-inverse);
 }
 
 .a11y-skipper__close {

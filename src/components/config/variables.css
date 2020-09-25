@@ -1,11 +1,11 @@
 :root {
 
 	/* Colors */
-	--c-black: #333;
-	--c-white: #eee;
+	--c-a11y-skipper-black: #333;
+	--c-a11y-skipper-white: #eee;
 
-	--c-branding: var(--c-black);
-	--c-branding-inverse: var(--c-white);
+	--c-a11y-skipper-branding: var(--c-a11y-skipper-black);
+	--c-a11y-skipper-branding-inverse: var(--c-a11y-skipper-white);
 
 	/* Breakpoints */
 	@custom-media --bp-small ( min-width: 31.25em ); /* 500px */

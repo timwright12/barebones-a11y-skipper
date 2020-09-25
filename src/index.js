@@ -2,4 +2,10 @@
 import './main.css';
 
 // JS imports
-import './main.js';
+import Skipper from './components/skipper/skipper';
+
+if ( 'object' !== typeof window.Barebones ) {
+	window.Barebones = {};
+}
+
+window.Barebones.skipper = Skipper;
