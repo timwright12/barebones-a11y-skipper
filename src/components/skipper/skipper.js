@@ -138,7 +138,7 @@ class Skipper {
 			}
 
 			// Close the dropdown if we're not inside it (open check inside closeDropdownMenu())
-			if ( 0 === dropdown.querySelectorAll( ':focus' ).length ) {
+			if ( dropdown && 0 === dropdown.querySelectorAll( ':focus' ).length ) {
 				this.closeDropdownMenu( dropdown, dropdownTrigger );
 				this.state.menuOpen = false;
 			}
@@ -203,10 +203,12 @@ class Skipper {
 	 * Utility to make sure the dropdown closes
 	 */
 	closeDropdownMenu( dropdown, dropdownTrigger ) {
-		dropdownTrigger.setAttribute( 'aria-expanded', 'false' );
-		dropdown.setAttribute( 'aria-hidden', 'true' );
-		setDisplay( dropdown );
-		this.state.dropDownOpen = false;
+		if( dropdown ) {
+			dropdownTrigger.setAttribute( 'aria-expanded', 'false' );
+			dropdown.setAttribute( 'aria-hidden', 'true' );
+			setDisplay( dropdown );
+			this.state.dropDownOpen = false;
+		}
 	}
 
 	/**

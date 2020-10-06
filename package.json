@@ -1,6 +1,6 @@
 {
   "name": "@barebones/a11y-skipper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A skip menu generation plugin inspired by the robust LinkedIn skip menu",
   "main": "./dist/index.min.js",
   "style": "./dist/index.css",
