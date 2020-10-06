@@ -1,0 +1,25 @@
+name: Confirm Successful Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  tests:
+    name: Run Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install node v13
+      uses: actions/setup-node@v1
+      with:
+        node-version: 13
+    - name: npm install
+      run: npm install
+    - name: npm run build
+      run: npm run build
