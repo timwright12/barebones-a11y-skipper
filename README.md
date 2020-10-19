@@ -1,6 +1,8 @@
 # A11y Skipper Menu
 
-[![Build Status][cli-img]][cli-url]
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+
+![Confirm Successful Build](https://github.com/timwright12/barebones-a11y-skipper/workflows/Confirm%20Successful%20Build/badge.svg)
 
 ## Usage
 
