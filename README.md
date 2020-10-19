@@ -1,8 +1,6 @@
 # A11y Skipper Menu
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
-
-![Confirm Successful Build](https://github.com/timwright12/barebones-a11y-skipper/workflows/Confirm%20Successful%20Build/badge.svg)
+![Confirm Successful Build](https://github.com/timwright12/barebones-a11y-skipper/workflows/Confirm%20Successful%20Build/badge.svg) [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
 ## Usage
 
@@ -61,6 +59,3 @@ Barebones.skipper.init( {
 <!--Matches the primary string ID passed into Skipper.init()-->
 <div id="main">Your main content here.</div>
 ```
-
-[cli-img]: https://travis-ci.org/timwright12/barebones-a11y-skipper.svg?branch=master
-[cli-url]: https://travis-ci.org/timwright12/barebones-a11y-skipper
